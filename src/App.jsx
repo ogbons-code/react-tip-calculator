@@ -1,20 +1,70 @@
-
-import Button from "./Button"
+import React, { useState, useRef } from 'react'
+import FormInput from './FormInput';
 import Header from "./Header"
-import Input from "./Input"
-import Input2 from "./Input2"
+
 
 function App() {
+  const [total, setTotal] = useState(0.00);
+  const [percent, setPercent] = useState(0)
+  const [amount, setAmount] = useState(0)
+
+  const calculateBtn = useRef();
+
+  const getPercent = (e) => {
+    setPercent(e.target.value);
+  }
+
+
+  const getAmount = (e) => {
+    setAmount(e.target.value);
+  }
+
+  const validateInputs = () => {
+    if (amount <= 0 || percent <= 0) {
+      calculateBtn.current.setAttribute("disabled", "");
+      calculateBtn.current.style.backgroundColor = "gray";
+    } else {
+      calculateBtn.current.removeAttribute("disabled");
+      calculateBtn.current.style.backgroundColor = "#07b007";
+    }
+  }
+
+  const calculateTotal = () => {
+    let mainTotal = (amount * percent) / 100;
+    setTotal(mainTotal);
+  }
+
 
   return (
-    <>
-      <div className="w-80 sm:w-80 md:w-1/2  mx-auto px-4 bg-white rounded-xl shadow-lg mt-10 pb-10">
+    <div>
+      <div className=" md:w-80 lg:w-1/2 xlg:w-1/2 mx-auto px-4 bg-gray-300 rounded-xl shadow-lg mt-10 pb-10">
         <Header />
-        <Input />
-        <Input2 />
-        <Button />
+
+        <FormInput
+          name={'amount'}
+          text={'Amount'}
+          computeValue={getAmount}
+          validateInputs={validateInputs}
+        />
+
+        <FormInput
+          name={'percent'}
+          text={'Tip Percentage'}
+          computeValue={getPercent}
+          validateInputs={validateInputs}
+        />
+
+
+        <div>
+          <button className=" bg-green-500 hover:bg-green-900 ... mx-auto px-5  sm:px-10 md:px-12 
+              lg:px-36 xl:px-52 ms-20 py-2 mb-4
+               text-white font-bold text-lg" id="calc-btn" ref={calculateBtn}
+            onClick={() => calculateTotal()} >Calculate</button>
+          <p className="font-semibold text-lg">Total: <b id="bill-result" className="text-2xl font-bold"> {total}</b>
+          </p>
+        </div>
       </div>
-    </>
+    </div>
   )
 }
 
