@@ -27,7 +27,7 @@ function App() {
     //check that percent is not more than 100
 
 
-    // if (percent >= 100) {
+    // if (percent > 100) {
     //   alert("please enter number less than 100");
     // }
   }
