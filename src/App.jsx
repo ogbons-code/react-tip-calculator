@@ -11,21 +11,6 @@ function App() {
   const calculateBtn = useRef();
 
 
-  const getPercent = (e) => {
-    setPercent(e.target.value);
-
-    //check that percent is not more than 100
-    percent > 100 ? alert("please enter number less than 100") : percent;
-
-    // if (percent >= 100) {
-    //   alert("please enter number less than 100");
-    // }
-  }
-
-  const getAmount = (e) => {
-    setAmount(e.target.value);
-  }
-
   const validateInputs = () => {
     if (amount <= 0 || percent <= 0) {
       calculateBtn.current.setAttribute("disabled", "");
@@ -34,6 +19,21 @@ function App() {
       calculateBtn.current.removeAttribute("disabled");
       calculateBtn.current.style.backgroundColor = "#07b007";
     }
+  }
+
+  const getPercent = (e) => {
+    setPercent(e.target.value);
+
+    //check that percent is not more than 100
+
+
+    // if (percent >= 100) {
+    //   alert("please enter number less than 100");
+    // }
+  }
+
+  const getAmount = (e) => {
+    setAmount(e.target.value);
   }
 
   const calculateTotal = () => {
